@@ -1,9 +1,9 @@
 import axios from "axios";
 import Cookies from "js-cookie";
 
-export const base_url = "https://e7dd-118-70-132-104.ngrok-free.app/"
+// export const base_url = "https://5975-42-118-50-145.ngrok-free.app/"
 
-// const base_url = "http://localhost:8088/";
+const base_url = "http://localhost:8088/";
 const login_path = "api/auth/login";
 
 

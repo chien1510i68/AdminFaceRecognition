@@ -1,5 +1,4 @@
-
-import { Button, Input, Popover, Space, Table } from "antd";
+import { Button, Input, Popover, Space, Table, notification } from "antd";
 import React, { useRef, useState } from "react";
 
 import {
@@ -31,35 +30,35 @@ function TableShowInforStudent({
   const [images, setImages] = useState([]);
   const [searchText, setSearchText] = useState("");
   const [searchedColumn, setSearchedColumn] = useState("");
-  const [loadingImage , setLoadingImage] = useState(false)
+  const [loadingImage, setLoadingImage] = useState(false);
   const searchInput = useRef(null);
+  const [userCode , setUserCode] = useState(null)
   const handleGetImages = async (userCode) => {
-    setLoadingImage(true)
+    setLoadingImage(true);
     const res = await getImages(userCode);
-    setLoadingImage(false)
-    if (res?.data?.images != []) {
-      const demo = res?.data?.images?.map((item) => {
+    console.log("Danh sách hình ảnh là: ", res);
+    setLoadingImage(false);
+    if (res?.data?.success) {
+      const demo = res?.data?.data?.map((item) => {
         return {
           name: item?.file_name?.split("/")[1],
           image: item?.encoded_image,
         };
       });
       setImages(demo);
-    } else {
-      setImages([]);
     }
   };
 
-  const onSelectChange = (newSelectedRowKeys) => {
-    console.log("selectedRowKeys changed: ", newSelectedRowKeys);
-    handleSetListStudent(newSelectedRowKeys);
-    setSelectedRowKeys(newSelectedRowKeys);
-  };
-  const rowSelection = {
-    selectedRowKeys,
-    onChange: onSelectChange,
-  };
-  const hasSelected = selectedRowKeys.length > 0;
+  // const onSelectChange = (newSelectedRowKeys) => {
+  //   console.log("selectedRowKeys changed: ", newSelectedRowKeys);
+  //   handleSetListStudent(newSelectedRowKeys);
+  //   setSelectedRowKeys(newSelectedRowKeys);
+  // };
+  // const rowSelection = {
+  //   selectedRowKeys,
+  //   onChange: onSelectChange,
+  // };
+  // const hasSelected = selectedRowKeys.length > 0;
   const handleBtnUser = (record, isEdit) => {
     setIsOpen(true);
     setRecord(record);
@@ -127,7 +126,7 @@ function TableShowInforStudent({
           >
             Reset
           </Button>
-        
+
           <Button
             type="link"
             size="small"
@@ -270,8 +269,8 @@ function TableShowInforStudent({
   return (
     <div className="">
       <Table
-      loading={loading}
-        rowSelection={rowSelection}
+        loading={loading}
+        // rowSelection={rowSelection}
         columns={columns}
         dataSource={data}
         scroll={{
@@ -293,9 +292,12 @@ function TableShowInforStudent({
         record={record}
       />
       <ModalShowImages
-      loading={loadingImage}
+        loading={loadingImage}
         isOpen={showImages}
-        onCancel={() => setShowImages(false)}
+        onCancel={() => {
+          setShowImages(false);
+          setImages(null);
+        }}
         images={images}
       />
     </div>

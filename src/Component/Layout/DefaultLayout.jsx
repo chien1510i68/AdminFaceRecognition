@@ -1,6 +1,9 @@
 import {
+  AuditOutlined,
   LogoutOutlined,
   MenuOutlined,
+  PieChartOutlined,
+  QrcodeOutlined,
   UploadOutlined,
   UserOutlined,
   VideoCameraOutlined,
@@ -29,7 +32,7 @@ const DefaultLayout = () => {
     },
     {
       key: "2",
-      icon: <VideoCameraOutlined />,
+      icon: <AuditOutlined />,
       // label: '',
       label: (
         <p onClick={() => navigate("/admin/classroom-manager")}>
@@ -39,7 +42,7 @@ const DefaultLayout = () => {
     },
     {
       key: "3",
-      icon: <UploadOutlined />,
+      icon: <QrcodeOutlined />,
       // label: 'Quản lý qr code',
       label: (
         <p onClick={() => navigate("/admin/qr-code/home")}>Điểm danh QR Code</p>
@@ -47,7 +50,7 @@ const DefaultLayout = () => {
     },
     {
       key: "4",
-      icon: <UploadOutlined />,
+      icon: <PieChartOutlined />,
       label: (
         <p onClick={() => navigate("/admin/face-recognition/home ")}>
           Quản lý điểm danh

@@ -6,6 +6,7 @@ function ModalShowImages({ isOpen, images, onCancel, loading }) {
     <Modal
       open={isOpen}
       onCancel={onCancel}
+      destroyOnClose={true}
       width={800}
       maskClosable={false}
       footer={null}
@@ -28,7 +29,7 @@ function ModalShowImages({ isOpen, images, onCancel, loading }) {
               </div>
             ))}
         </div>
-        {images.length == 0 && (
+        {images === null && (
           <h2 className="text-center text-red-400">
             Sinh viên chưa có hình ảnh nào{" "}
           </h2>
