@@ -11,9 +11,17 @@ import {
 } from "antd";
 import { createClassroom } from "../../API/classroom";
 import TextArea from "antd/es/input/TextArea";
+import Cookies from "js-cookie";
+import { ProFormUploadButton } from "@ant-design/pro-components";
 function ModalCreateClassroom({ isOpen, onCancel, handleGetListClassroom }) {
   const currentYear = new Date(Date.now()).getFullYear();
   const [loading, setLoading] = useState(false);
+  const [file, setFile] = useState(null);
+  const handleUpload = (file) => {
+    setFile(file?.file);
+  };
+  // const [listFile, setListFile] = useState([]);
+  // const [fieldFile, setFieldFile] = useState("");
   const [schoolYear, setShoolYear] = useState(
     `${currentYear - 1} - ${currentYear}`
   );
@@ -21,17 +29,21 @@ function ModalCreateClassroom({ isOpen, onCancel, handleGetListClassroom }) {
   const [valueNote, setValueNote] = useState(null);
   const onFinish = async (values) => {
     setLoading(true);
-    const data = {
-      className: values?.className,
-      classCode: values?.classCode,
-      studyGroup: values?.studyGroup,
-      schoolYear: schoolYear,
-      semester: semester,
-      quantityStudents: 12,
-      note: valueNote,
-    };
-    console.log(data);
-    const res = await createClassroom(data);
+    const formData = new FormData();
+    formData.append("className", values?.className);
+    formData.append("classCode", values?.classCode);
+    formData.append("studyGroup", values?.studyGroup);
+    formData.append("schoolYear", schoolYear);
+    formData.append("semester", semester);
+    formData.append("quantityStudents", 12);
+    if (file !== null) {
+      formData.append("file", file);
+    }
+    formData.append("note", valueNote);
+    formData.append("userCode", Cookies.get("userCode"));
+
+    // console.log(data);
+    const res = await createClassroom(formData);
     setLoading(false);
     if (res?.success) {
       notification.success({ message: "Tạo thành công lớp học" });
@@ -60,7 +72,7 @@ function ModalCreateClassroom({ isOpen, onCancel, handleGetListClassroom }) {
         footer={null}
         maskClosable={false}
       >
-           <div className={`${loading && "hidden"}`}>
+        <div className={`${loading && "hidden"}`}>
           <h2 className="text-base font-medium uppercase text-center mb-5">
             Tạo lớp học phần
           </h2>
@@ -155,6 +167,21 @@ function ModalCreateClassroom({ isOpen, onCancel, handleGetListClassroom }) {
                 ]}
               />
             </Form.Item>
+            <Form.Item>
+              <ProFormUploadButton
+                name="image"
+                title="Upload list student in classroom"
+                fieldProps={{
+                  listType: "picture-card",
+                  method: "POST",
+                  name: "file",
+                  customRequest: handleUpload,
+                  multiple: true,
+                  // onRemove: listFileRemoved,
+                  openFileDialogOnClick: true,
+                }}
+              />
+            </Form.Item>
             <Form.Item className="col-span-2 mx-2" label="Ghi chú" name="note">
               <TextArea
                 placeholder="Controlled autosize"
@@ -172,7 +199,7 @@ function ModalCreateClassroom({ isOpen, onCancel, handleGetListClassroom }) {
           </Form>
         </div>
         <div className={`text-center my-4 ${!loading && "hidden"}`}>
-          <Spin size="large"/>
+          <Spin size="large" />
           <h2 className="mt-2 font-medium ">Đang cập nhật dữ liệu ....</h2>
         </div>
       </Modal>

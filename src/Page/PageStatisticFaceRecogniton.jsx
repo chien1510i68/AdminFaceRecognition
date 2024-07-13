@@ -109,7 +109,7 @@ function PageStatisticFaceRecogniton(props) {
         </div>
 
         <div className="laptop:col-span-2 phone:col-span-3">
-          <DowloadAttendedClassroom />
+          <DowloadAttendedClassroom qrId={id}/>
         </div>
 
         <div className="laptop:col-span-2 phone:col-span-6">

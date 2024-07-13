@@ -51,3 +51,10 @@ export const getHistoryAttendedByClassroom = async (data) => {
   const res = await request.post("checkins/user", data);
   return res?.data?.success ? res?.data?.data?.items : null;
 };
+export const deleteUser =async (id) =>{
+  return await request.delete(`user/${id}`)
+}
+
+export const createLecturers =async (data ) =>{
+  return await request.post("user/createLecturers" , data)
+}

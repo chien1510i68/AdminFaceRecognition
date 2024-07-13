@@ -6,13 +6,14 @@ import { getAllUser } from "../Component/API/users";
 import PopupFilterUser from "../Component/Modal/ModalUser/PopupFilterUser";
 import TableShowInforClassroom from "../Component/Table/TableShowInforClassroom";
 import { getListClassroom } from "../Component/API/classroom";
+import Cookies from "js-cookie";
 
 function PageStudentManager() {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
 
   const handleGetListClassroom = () => {
-    getListClassroom().then((res) => {
+    getListClassroom(Cookies.get("userCode")).then((res) => {
       setLoading(false);
       console.log(res);
       setData(res?.items);

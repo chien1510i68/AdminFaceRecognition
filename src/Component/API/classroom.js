@@ -1,8 +1,8 @@
 import request from "./request";
 //
-export const getListClassroom = () => {
+export const getListClassroom = (userCode) => {
   const response = request
-    .get("classroom/")
+    .get(`classroom/by-admin/${userCode}`)
     .then((res) => {
       console.log(res?.data?.data);
       if (res?.data?.success === true) {

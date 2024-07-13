@@ -4,13 +4,15 @@ import TableShowInforClassroom from "../Component/Table/TableShowInforClassroom"
 import { useLocation, useRoutes } from "react-router";
 import { Button } from "antd";
 import ModalCreateClassroom from "../Component/Modal/ModalClassroom/ModalCreateClassroom";
+import Cookies from "js-cookie";
 
 function PageClassroom(props) {
   const [data, setData] = useState([]);
   const [openModalCreate, setOpenModalCreate] = useState(false);
  const [loading , setLoading] = useState(true)
+ const userCode = Cookies.get("userCode")
   const handleGetListClassroom = () =>{
-    getListClassroom().then((res) => {
+    getListClassroom( Cookies.get("userCode")).then((res) => {
       setLoading(false)
       console.log(res);
       setData(res?.items);
@@ -33,7 +35,7 @@ function PageClassroom(props) {
         </div>
       </div>
 
-      {/* <Button onClick={() => setIsOpenModalQR(true)} className='block ml-auto mb-5'>Tạo mã QR </Button> */}
+      
       <TableShowInforClassroom loading={loading} data={data} isShowAction={true} handleGetListClassroom={handleGetListClassroom} />
       <ModalCreateClassroom
         isOpen={openModalCreate}

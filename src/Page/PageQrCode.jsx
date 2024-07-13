@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { getListClassroom } from '../Component/API/classroom';
 import TableShowInforClassroom from '../Component/Table/TableShowInforClassroom';
+import Cookies from 'js-cookie';
 
 function PageQrCode(props) {
     const [data , setData] = useState([])
     const [loading , setLoading] = useState(true)
     useEffect(() =>{
-    getListClassroom().then((res) => {
+    getListClassroom(Cookies.get("userCode")).then((res) => {
         setLoading(false)
         console.log(res);
         setData(res?.items);

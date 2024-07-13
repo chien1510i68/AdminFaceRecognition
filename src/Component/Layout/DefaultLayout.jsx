@@ -16,9 +16,21 @@ import Cookies from "js-cookie";
 const { Header, Content, Footer, Sider } = Layout;
 
 const DefaultLayout = () => {
+
+
+
+
+
+
+
+  
   const {
-    token: { colorBgContainer, borderRadiusLG },
+    token: { colorBgContainer, borderRadiusLG ,siderBg="#97cdb2" },
   } = theme.useToken();
+
+  const colorSibar = {
+
+  }
   const navigate = useNavigate();
   const items = [
     {
@@ -57,15 +69,24 @@ const DefaultLayout = () => {
         </p>
       ),
     },
+    ...(Cookies.get("role") === "ADMIN"
+      ? [
+          {
+            key: "5",
+            icon: <PieChartOutlined />,
+            label: (
+              <p onClick={() => navigate("/admin/lecturers")}>
+                Quản lý giảng viên
+              </p>
+            ),
+          },
+        ]
+      : []),
     {
-      key :"5",
-      icon :<LogoutOutlined/>,
-      label : (
-        <p onClick={() => handleLogout()}>
-        Đăng xuất
-      </p>
-      )
-    }
+      key: "6",
+      icon: <LogoutOutlined />,
+      label: <p onClick={() => handleLogout()}>Đăng xuất</p>,
+    },
   ];
   const userName = Cookies.get("userName");
   const [open, setOpen] = useState(false);
@@ -73,20 +94,24 @@ const DefaultLayout = () => {
     try {
       Cookies.remove("userCode");
       Cookies.remove("userName");
-      Cookies.remove("userName");
+      Cookies.remove("jwt");
+      Cookies.remove("role");
       navigate("/");
       notification.success({ message: "Đã đăng xuất !" });
     } catch (error) {}
   };
   return (
     <Layout className="relative">
-      <Sider className="phone:hidden tablet:block overflow-auto h-[100vh] fixed left-0 bottom-0 top-0">
+      <Sider
+      style={{background : siderBg}}
+      className="phone:hidden tablet:block overflow-auto h-[100vh] fixed left-0 bottom-0 top-0 bg-red-300">
         <div className="demo-logo-vertical  text-center bg-slate-200 my-5 py-3 mx-1 rounded-lg">
           Xin chào {userName}
         </div>
 
         <Menu
-          theme="dark"
+        style={{background : siderBg}}
+          // theme="dark"
           mode="inline"
           defaultSelectedKeys={["1"]}
           items={items}
@@ -114,7 +139,7 @@ const DefaultLayout = () => {
             style={{
               padding: 24,
               textAlign: "center",
-
+              siderBg:siderBg,
               background: colorBgContainer,
               borderRadius: borderRadiusLG,
             }}

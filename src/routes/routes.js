@@ -4,6 +4,7 @@ import HomePage from "../Page/HomePage";
 import Login from "../Page/Login";
 import PageClassroom from "../Page/PageClassroom";
 import PageFaceRecognition from "../Page/PageFaceRecognition";
+import PageLecturers from "../Page/PageLecturers";
 import PageQrCode from "../Page/PageQrCode";
 import PageStatisticFaceRecogniton from "../Page/PageStatisticFaceRecogniton";
 import PageStudentManager from "../Page/PageStudentManager";
@@ -11,7 +12,6 @@ import StudentsInClassroom from "../Page/StudentsInClassroom";
 import Test from "../Page/Test";
 
 const { createBrowserRouter } = require("react-router-dom");
-
 
 export const routerPage = createBrowserRouter([
   {
@@ -31,9 +31,10 @@ export const routerPage = createBrowserRouter([
           { path: "home", element: <PageQrCode /> },
           { path: "create", element: <ModalCreateQRCode /> },
         ],
-      },{
+      },
+      {
         path: "test",
-        element :<Test/>
+        element: <Test />,
       },
       {
         path: "face-recognition/",
@@ -41,7 +42,11 @@ export const routerPage = createBrowserRouter([
           { path: "home", element: <PageFaceRecognition /> },
           { path: "statistic", element: <PageStatisticFaceRecogniton /> },
         ],
-      }
+      },
+      {
+        path: "lecturers",
+        element: <PageLecturers />,
+      },
     ],
   },
 ]);

@@ -18,6 +18,7 @@ function Login(props) {
       Cookies.set("jwt", res?.data?.data?.jwt);
       Cookies.set("userCode", res?.data?.data?.userCode);
       Cookies.set("userName", res?.data?.data?.userName);
+      Cookies.set("role", res?.data?.data?.roles[0]);
       navigate("/admin/student-manager");
     } else {
       notification.error({

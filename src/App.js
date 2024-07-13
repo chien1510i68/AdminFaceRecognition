@@ -1,12 +1,12 @@
-import logo from './logo.svg';
-import './App.css';
-import DefaultLayout from './Component/Layout/DefaultLayout';
+import logo from "./logo.svg";
+import "./App.css";
+import { RouterProvider } from "react-router-dom";
+import { routerPage } from "./routes/routes";
 
 function App() {
   return (
     <div className="App">
-      <h2 className='text-3xl text-red-500'> this is app face recognized</h2>
-      <DefaultLayout/>
+      <RouterProvider router={routerPage} />
     </div>
   );
 }

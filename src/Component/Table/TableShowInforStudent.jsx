@@ -1,4 +1,4 @@
-import { Button, Input, Popover, Space, Table, notification } from "antd";
+import { Button, Input, Popover, Space, Table } from "antd";
 import React, { useRef, useState } from "react";
 
 import {
@@ -32,7 +32,7 @@ function TableShowInforStudent({
   const [searchedColumn, setSearchedColumn] = useState("");
   const [loadingImage, setLoadingImage] = useState(false);
   const searchInput = useRef(null);
-  const [userCode , setUserCode] = useState(null)
+  const [userCode, setUserCode] = useState(null);
   const handleGetImages = async (userCode) => {
     setLoadingImage(true);
     const res = await getImages(userCode);
@@ -49,16 +49,7 @@ function TableShowInforStudent({
     }
   };
 
-  // const onSelectChange = (newSelectedRowKeys) => {
-  //   console.log("selectedRowKeys changed: ", newSelectedRowKeys);
-  //   handleSetListStudent(newSelectedRowKeys);
-  //   setSelectedRowKeys(newSelectedRowKeys);
-  // };
-  // const rowSelection = {
-  //   selectedRowKeys,
-  //   onChange: onSelectChange,
-  // };
-  // const hasSelected = selectedRowKeys.length > 0;
+
   const handleBtnUser = (record, isEdit) => {
     setIsOpen(true);
     setRecord(record);
@@ -178,8 +169,7 @@ function TableShowInforStudent({
     {
       title: "Ngày sinh",
       dataIndex: "dob",
-      align: "center",
-      // ...getColumnSearchProps('name'),
+      align: "center"
     },
     {
       title: "Mã sinh viên",
@@ -193,11 +183,7 @@ function TableShowInforStudent({
       align: "center",
       ...getColumnSearchProps("classname"),
     },
-    // {
-    //   title: "Quê quán ",
-    //   dataIndex: "address",
-    //   align: "center",
-    // },
+   
     {
       title: "Số điện thoại",
       dataIndex: "phoneNumber",
@@ -268,16 +254,18 @@ function TableShowInforStudent({
 
   return (
     <div className="">
-      <Table
-        loading={loading}
-        // rowSelection={rowSelection}
-        columns={columns}
-        dataSource={data}
-        scroll={{
-          y: 1200,
-          x: 800,
-        }}
-      />
+      <div>
+        <Table
+          loading={loading}
+          // rowSelection={rowSelection}
+          columns={columns}
+          dataSource={data}
+          scroll={{
+            y: 600,
+            x: 800,
+          }}
+        />
+      </div>
 
       <ModalEditUser
         isOpen={isOpen}

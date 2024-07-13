@@ -299,6 +299,7 @@ function TableShowInforClassroom({
         loading={loading}
         // pagination={{
         //   pageSize: 20,
+        
         // }}
         scroll={{
           y: 1000,

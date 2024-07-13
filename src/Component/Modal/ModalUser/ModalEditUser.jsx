@@ -2,7 +2,7 @@ import { Button, Form, Input, Modal, notification } from "antd";
 import React, { useEffect } from "react";
 import { updateUser } from "../../API/users";
 
-function ModalEditUser({ isOpen, onCancel, record, isEdit ,handleGetData }) {
+function ModalEditUser({ isOpen, onCancel, record, isEdit, handleGetData }) {
   const onFinish = async (values) => {
     const res = await updateUser({ ...values, id: record?.id });
     console.log("Du lieu tra ve la : ", res);
@@ -11,17 +11,16 @@ function ModalEditUser({ isOpen, onCancel, record, isEdit ,handleGetData }) {
         message: " Cập nhật thành công thông tin người dùng ",
       });
       onCancel();
-      handleGetData()
+      handleGetData();
     } else {
       notification.error({ message: res?.data?.error?.message });
       onCancel();
     }
-    // onCancel();
   };
 
-  // const handleEditUser = () =>{
-  // const res = updateUser()
-  // }
+  useEffect(() => {
+    console.log(record);
+  }, []);
 
   return (
     <Modal
@@ -41,24 +40,6 @@ function ModalEditUser({ isOpen, onCancel, record, isEdit ,handleGetData }) {
         layout="vertical"
         onFinish={onFinish}
       >
-        {/* <Form.Item label="Họ và tên" name="fullName" className="col-span-1">
-          <Input />
-        </Form.Item>
-        <Form.Item label="Ngày sinh" name="dob" className="col-span-1">
-          <Input />
-        </Form.Item>
-        <Form.Item label="Mã sinh viên" name="userCode" className="col-span-1">
-          <Input />
-        </Form.Item>
-        <Form.Item label="Lớp học phần" name="classname" className="col-span-1">
-          <Input />
-        </Form.Item>
-        <Form.Item label="Quê quán" name="address" className="col-span-1">
-          <Input />
-        </Form.Item>
-        <Form.Item label="Số điện thoại" name="phoneNumber" className="col-span-1">
-          <Input />
-        </Form.Item> */}
         <Form.Item
           name="fullName"
           rules={[
